@@ -5,6 +5,7 @@ import {RegisterComponent} from './pages/register/register.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
+import { AppointmentComponent } from './pages/appointments/appointment.component';
 
 
 
@@ -15,6 +16,7 @@ const app_routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'appointments', component: AppointmentsComponent },
+  { path: 'appointment/:id', component: AppointmentComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 

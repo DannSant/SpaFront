@@ -47,8 +47,8 @@ export class RegisterComponent implements OnInit {
    user.password=datos.password1;
    this._userService.crearUsuario(user).subscribe((resp:any)=>{
     if(resp.ok){
-      this._alert.showAlertWithCallback("Todo correcto","Te has registrado correctamente","success",()=>{
-        this.router.navigate(['/home']);
+      this._alert.showAlertWithCallback("Todo correcto","Te has registrado correctamente, ya puedes iniciar sesion","success",()=>{
+        this.router.navigate(['/login']);
       });
     }else {
       this._alert.showAlert("Error","Ocurrio un error al registrarse","error");

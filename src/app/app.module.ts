@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {APP_ROUTING} from './app.routes';
 import {FormsModule} from '@angular/forms'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -20,6 +23,7 @@ import { AppointmentsComponent } from './pages/appointments/appointments.compone
 import {AlertService} from './services/alert.service';
 import {UserService} from './services/user.service';
 import { ServicesService } from './services/services.service';
+import { AppointmentComponent } from './pages/appointments/appointment.component';
 
 
 @NgModule({
@@ -31,14 +35,18 @@ import { ServicesService } from './services/services.service';
     RegisterComponent,
     AboutComponent,
     ServicesComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     APP_ROUTING,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     AlertService,

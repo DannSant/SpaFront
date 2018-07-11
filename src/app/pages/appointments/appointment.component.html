@@ -1,0 +1,51 @@
+<div class="container main-container">
+    <h3>Selecciona los siguientes datos</h3>
+    <form #f="ngForm" (ngSubmit)="makeAppointment(f)" ngNativeValidator>
+        <div class="form-group">
+            <label for="service">Servicio</label>
+            <select name="service" [(ngModel)]="service" class="custom-select">
+                <option  value="1">Masaje reductivo</option>
+                <option  value="2">Masaje aca</option>
+                <option  value="3">Masaje no tan aca</option>
+              </select>
+        </div>
+        <div class="form-group">
+            <label for="branchOffice" data-toggle="tooltip" data-placement="top" title="Elige la sucursal donde te gustaria ser atendido">
+              Sucursal
+            </label>
+            <select name="branchOffice" [(ngModel)]="branchOffice" class="custom-select">
+            <option  value="1">Oceania</option>
+            <option  value="2">Vaquerines</option>
+          </select>
+        </div>
+        <div class="form-group">
+            <h5>Esta sucursal solo atiende los siguientes dias:</h5>
+            <ul class="list-group">
+                <li class="list-group-item">Lunes</li>
+                <li class="list-group-item">Miercoles</li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="branchOffice" data-toggle="tooltip" data-placement="top" title="Elige la fecha. Considera que solo se atiende los dias anteriormente listados">
+              Fecha
+            </label>
+            <input [matDatepicker]="myDatepicker">
+            <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+        </div>
+
+        <div class="form-group">
+            <label for="hour" data-toggle="tooltip" data-placement="top" title="Elige la hora">
+              Horario
+            </label>
+            <select name="hour" [(ngModel)]="hour" class="custom-select">
+            <option  value="1">8:00-9:00</option>
+            <option  value="2">11:00-12:00</option>
+          </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-block">Agendar</button>
+    </form>
+</div>

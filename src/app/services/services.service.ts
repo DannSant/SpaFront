@@ -13,7 +13,7 @@ export class ServicesService {
   ) { }
 
   listarServicios(pageFrom:number,limit=99){
-    let url = SERVICE_URL + "/service?from=" + pageFrom + "&limit="+limit;
+    let url = SERVICE_URL + "/service/all?from=" + pageFrom + "&limit="+limit;
     let headers = new HttpHeaders({
       token:this._userService.token
     })

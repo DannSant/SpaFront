@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.email=this._userService.email;
+    if(this.email){
+      this.remember=true;
+    }
   }
 
   loginUser(f:NgForm){
