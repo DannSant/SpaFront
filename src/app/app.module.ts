@@ -6,7 +6,7 @@ import {APP_ROUTING} from './app.routes';
 import {FormsModule} from '@angular/forms'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
+import {MatNativeDateModule, MatFormFieldModule,MatInputModule} from '@angular/material';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -18,12 +18,16 @@ import {HttpClientModule} from '@angular/common/http';
 import { AboutComponent } from './pages/about/about.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
+import { AppointmentComponent } from './pages/appointments/appointment.component';
 
 //Servicios
 import {AlertService} from './services/alert.service';
 import {UserService} from './services/user.service';
 import { ServicesService } from './services/services.service';
-import { AppointmentComponent } from './pages/appointments/appointment.component';
+import { BranchOfficeService } from './services/branch-office.service';
+import { ServiceDayService } from './services/service-day.service';
+import { TherapistService } from './services/therapist.service';
+import { AppointmentService } from './services/appointment.service';
 
 
 @NgModule({
@@ -46,12 +50,18 @@ import { AppointmentComponent } from './pages/appointments/appointment.component
     HttpClientModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     AlertService,
     UserService,
-    ServicesService
+    ServicesService,
+    BranchOfficeService,
+    ServiceDayService,
+    TherapistService,
+    AppointmentService
   ],
   bootstrap: [AppComponent]
 })

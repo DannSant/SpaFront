@@ -4,6 +4,7 @@ export class Service {
         desc?:string,
         price?:number,
         duration?: number,
-        img?:string
+        img?:string,
+        public _id?:string
     ){}
 }

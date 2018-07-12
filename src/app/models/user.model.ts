@@ -6,6 +6,7 @@ export class User {
         public sex?:string,
         public img?:string,
         public role?:string,
-        public password?:string
+        public password?:string,
+        public _id?:string
     ){}
 }
