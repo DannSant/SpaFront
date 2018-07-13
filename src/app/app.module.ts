@@ -28,6 +28,9 @@ import { BranchOfficeService } from './services/branch-office.service';
 import { ServiceDayService } from './services/service-day.service';
 import { TherapistService } from './services/therapist.service';
 import { AppointmentService } from './services/appointment.service';
+import { PastAppointmentsComponent } from './pages/appointments/listing/past-appointments.component';
+import { CurrentAppointmentsComponent } from './pages/appointments/listing/current-appointments.component';
+
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { AppointmentService } from './services/appointment.service';
     AboutComponent,
     ServicesComponent,
     AppointmentsComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    PastAppointmentsComponent,
+    CurrentAppointmentsComponent
+    
   ],
   imports: [
     BrowserModule,

@@ -37,9 +37,9 @@
             <label for="hour" data-toggle="tooltip" data-placement="top" title="Elige la hora">
               Horario
             </label>
-            <select name="hour" [(ngModel)]="hour" class="custom-select">
-            <option  value="1">8:00-9:00</option>
-            <option  value="2">11:00-12:00</option>
+            <select name="businessHour" [(ngModel)]="businessHour" class="custom-select">
+            <option *ngFor="let h of hours" [value]="h">{{h}}</option>
+            
           </select>
         </div>
 

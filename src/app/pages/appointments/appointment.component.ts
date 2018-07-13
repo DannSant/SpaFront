@@ -7,6 +7,11 @@ import { Service } from '../../models/service.model';
 import { ServiceDay } from '../../models/service-day.model';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { AlertService } from '../../services/alert.service';
+import { AppointmentService } from '../../services/appointment.service';
+import { Appointment } from '../../models/appointment.model';
+import { UserService } from '../../services/user.service';
+import { ValueTransformer } from '../../../../node_modules/@angular/compiler/src/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -25,6 +30,7 @@ export class AppointmentComponent implements OnInit {
   service:string;
   appointmentDate:Date;
   selectedServiceDay:ServiceDay;
+  businessHour:string;
 
   weekDays:any = [
     "domingo",
@@ -41,7 +47,10 @@ export class AppointmentComponent implements OnInit {
     public _branchOffice:BranchOfficeService,
     public _serviceDay:ServiceDayService,
     public activatedRoute:ActivatedRoute,
-    public _alert:AlertService
+    public _alert:AlertService,
+    public _appointment:AppointmentService,
+    public _userService:UserService,
+    public router:Router
 
   ) { }
 
@@ -109,6 +118,8 @@ export class AppointmentComponent implements OnInit {
     }else {
       this.selectedServiceDay = this.getServiceDayByDesc(selectedWeekDay);
     }
+
+    this.loadHours();
     
     
   }
@@ -116,7 +127,11 @@ export class AppointmentComponent implements OnInit {
   getServiceDayByDesc(desc:string):ServiceDay{
     let sd:ServiceDay;
     for(let currentSD of this.serviceDays){
-      //buscar el correcto
+      let serviceDayDesc = currentSD.day_desc;
+      if(desc.toUpperCase()==serviceDayDesc.toUpperCase()){
+        sd = currentSD;
+        break;
+      }
     }
     return sd;
   }
@@ -128,10 +143,56 @@ export class AppointmentComponent implements OnInit {
     }
     this.hours = [];
     let hoursRawData =this.selectedServiceDay.businessHours;
+    
     let hoursData = hoursRawData.split("|");
+  
     for (let hour of hoursData){
       this.hours.push(hour);
     }
+  }
+
+  makeAppointment(){
+    let newAppointment = new Appointment();
+
+    //Asignar usuario que pide la cita
+    newAppointment.user= this._userService.loggedUser._id;
+
+    //Construir fecha de cita
+    let appointmentDate = new Date(this.appointmentDate);
+    let hours = Number(this.businessHour.substring(0,2));
+    let minutes = Number(this.businessHour.substring(2,2));   
+    appointmentDate.setHours(hours);
+    appointmentDate.setMinutes(minutes);
+    newAppointment.date=appointmentDate;
+
+    //Obtener precio
+    let selectedService = this.services.map((value , index)=>{
+      if(value._id==this.service){
+        return value;
+      }
+    });
+    let price = selectedService[0].price;
+    newAppointment.price=price;
+
+    //Servicio
+    newAppointment.service = this.service;
+
+    //Sucursal
+    newAppointment.branchOffice=this.branchOffice;
+    //console.log(newAppointment);
+    this._appointment.makeAppointment(newAppointment).subscribe((resp:any)=>{
+      if(resp.ok){
+        this._alert.showAlert("Cita creada","Haz agendado tu cita correctamente. En un periodo de 24 horas habiles nos comunicaremos contigo para confirmarla. Gracias por tu preferencia","success");
+        this.router.navigate(['/appointments']);
+      }else {
+        this._alert.showAlert("Error","Ocurrio un error al agendar tu cita. Prueba recargando la pagina y agendando de nuevo","error");
+      }
+    });
+
+
+    
+
+
   }
 
 
