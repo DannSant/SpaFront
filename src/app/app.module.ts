@@ -1,12 +1,13 @@
 //Modulos
 import {RouterModule} from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule , LOCALE_ID} from '@angular/core';
 import {APP_ROUTING} from './app.routes';
 import {FormsModule} from '@angular/forms'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatFormFieldModule,MatInputModule} from '@angular/material';
+
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { AboutComponent } from './pages/about/about.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { AppointmentComponent } from './pages/appointments/appointment.component';
+import { PastAppointmentsComponent } from './pages/appointments/listing/past-appointments.component';
+import { CurrentAppointmentsComponent } from './pages/appointments/listing/current-appointments.component';
 
 //Servicios
 import {AlertService} from './services/alert.service';
@@ -28,9 +31,12 @@ import { BranchOfficeService } from './services/branch-office.service';
 import { ServiceDayService } from './services/service-day.service';
 import { TherapistService } from './services/therapist.service';
 import { AppointmentService } from './services/appointment.service';
-import { PastAppointmentsComponent } from './pages/appointments/listing/past-appointments.component';
-import { CurrentAppointmentsComponent } from './pages/appointments/listing/current-appointments.component';
-
+import { LoggedGuard } from './services/guards/logged.guard';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { DurationPipe } from './pipes/duration.pipe';
+import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
+registerLocaleData(localeEs);
 
 
 @NgModule({
@@ -45,7 +51,9 @@ import { CurrentAppointmentsComponent } from './pages/appointments/listing/curre
     AppointmentsComponent,
     AppointmentComponent,
     PastAppointmentsComponent,
-    CurrentAppointmentsComponent
+    CurrentAppointmentsComponent,
+    DurationPipe,
+    AppointmentStatusPipe
     
   ],
   imports: [
@@ -61,13 +69,15 @@ import { CurrentAppointmentsComponent } from './pages/appointments/listing/curre
     MatInputModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
     AlertService,
     UserService,
     ServicesService,
     BranchOfficeService,
     ServiceDayService,
     TherapistService,
-    AppointmentService
+    AppointmentService,
+    LoggedGuard
   ],
   bootstrap: [AppComponent]
 })

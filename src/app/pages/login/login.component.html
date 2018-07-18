@@ -1,27 +1,29 @@
 <div class="container main-container">
-  <div class="row">
-    <div class="col-md-6  m-3">
-    <form #f="ngForm" (ngSubmit)="loginUser(f)" ngNativeValidator>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input [(ngModel)]="email" type="email" class="form-control" name="email" placeholder="Ingresa email" required>
-       
-      </div>
-      <div class="form-group">
-          <label for="password">Password</label>
-          <input [(ngModel)]="password" type="password" class="form-control" name="password"  id="password" placeholder="Password" required>
-      </div>
-      <div class="form-group form-check">
-          <input [(ngModel)]="remember" name="remember" type="checkbox" class="form-check-input largerCheckbox" id="remember">
-          <label class="form-check-label" for="remember" style="margin-left: 20px">Recordar cuenta</label>
-        </div>
-      <br>
-        <button type="submit" class="btn btn-primary btn-block">Iniciar sesion</button>
-    </form>
-  </div>
+    <div class="row">
+        <div class="col-md-6  m-3">
+            <form #f="ngForm" (ngSubmit)="loginUser(f)" ngNativeValidator>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input [(ngModel)]="email" type="email" class="form-control" name="email" placeholder="Ingresa email" required>
 
-  <div class="col-md-5">
-    <img src="assets/img/login_caratula.jpg" class="img-fluid rounded">
-  </div>
-</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input [(ngModel)]="password" type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group form-check">
+                    <input [(ngModel)]="remember" name="remember" type="checkbox" class="form-check-input largerCheckbox" id="remember">
+                    <label class="form-check-label" for="remember" style="margin-left: 20px">Recordar cuenta</label>
+                </div>
+                <br>
+                <small class="form-text text-muted"> ¿Aun no tienes cuenta? <a routerLink="/register">Registrate</a>  Solo toma unos minutos</small>
+                <br>
+                <button type="submit" class="btn btn-primary btn-block">Iniciar sesion</button>
+            </form>
+        </div>
+
+        <div class="col-md-5">
+            <img src="assets/img/login_caratula.jpg" class="img-fluid rounded">
+        </div>
+    </div>
 </div>

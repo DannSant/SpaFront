@@ -1,46 +1,49 @@
 <div class="container main-container">
-  <form #f="ngForm" (ngSubmit)="registerUser(f)" ngNativeValidator>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input [(ngModel)]="email" type="email" class="form-control" name="email" placeholder="Ingresa email" required>
-     
-    </div>
-    <div class="form-group">
-      <label for="name">Nombre</label>
-      <input [(ngModel)]="name" type="text" class="form-control" name="name" placeholder="Ingresa tu nombre" required>     
-    </div>
+    <form #f="ngForm" (ngSubmit)="registerUser(f)" ngNativeValidator>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input [(ngModel)]="email" type="email" class="form-control" name="email" placeholder="Ingresa email" required>
 
-    <div class="form-group">
-      <label for="cellphone">Número Celular</label>
-      <input [(ngModel)]="cellphone" type="text" class="form-control" name="cellphone" placeholder="Ingresa tu celular" required>     
-    </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input [(ngModel)]="name" type="text" class="form-control" name="name" placeholder="Ingresa tu nombre" required>
+        </div>
 
-    <div class="form-group">
-        <label >Sexo</label>
-        <br>
-        <div class="form-check form-check-inline">
-            <label class="form-check-label" for="sexFem">
+        <div class="form-group">
+            <label for="cellphone">Número Celular</label>
+            <input [(ngModel)]="cellphone" type="text" class="form-control" name="cellphone" placeholder="Ingresa tu celular" required>
+        </div>
+
+        <div class="form-group">
+            <label>Sexo</label>
+            <br>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="sexFem">
                 Femenino
               </label>
-          <input [(ngModel)]="sex" class="form-check-input" type="radio" name="sex" id="sexFem" value="F" checked>          
-        </div>
-        <div class="form-check form-check-inline">
-            <label class="form-check-label" for="sexMasc">
+                <input [(ngModel)]="sex" class="form-check-input" type="radio" name="sex" id="sexFem" value="F" checked>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="sexMasc">
                 Masculino
               </label>
-            <input [(ngModel)]="sex" class="form-check-input" type="radio" name="sex" id="sexMasc" value="M">            
-          </div>     
-      </div>  
+                <input [(ngModel)]="sex" class="form-check-input" type="radio" name="sex" id="sexMasc" value="M">
+            </div>
+        </div>
 
-    <div class="form-group">
-      <label for="password1">Password</label>
-      <input [(ngModel)]="password1" type="password" class="form-control" name="password1"  id="password1" placeholder="Password" required>
-    </div>
-    <div class="form-group">
-      <label for="password2">Repetir Password</label>
-      <input [(ngModel)]="password2" type="password" class="form-control" name="password2"  id="password2" placeholder="Repetir Password" required>
-    </div>    
-    <small class="form-text text-muted">No compartimos tus datos personales con nadie, solo se solicitan para confirmar tu cita</small>
-    <button type="submit" class="btn btn-primary">Registrarse</button>
-  </form>
+        <div class="form-group">
+            <label for="password1">Password</label>
+            <input [(ngModel)]="password1" type="password" class="form-control" name="password1" id="password1" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+            <label for="password2">Repetir Password</label>
+            <input [(ngModel)]="password2" type="password" class="form-control" name="password2" id="password2" placeholder="Repetir Password" required>
+        </div>
+        <small class="form-text text-muted">No compartimos tus datos personales con nadie, solo se solicitan para confirmar tu cita</small>
+        <hr>
+        <small class="form-text text-muted"> ¿Ya tienes cuenta? <a routerLink="/login">Inicia Sesion</a> </small>
+        <br>
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
 </div>

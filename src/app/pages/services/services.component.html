@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <button [routerLink]="['/appointment',service._id]" class="btn btn-primary btn-block" type="button" style="margin-top: 20px; margin-bottom: 10px;">
+                        <button (click)="agendarCita(service)" class="btn btn-primary btn-block" type="button" style="margin-top: 20px; margin-bottom: 10px;">
                       Agendar
                     </button>
                         <button class="btn btn-info btn-block" type="button" style="margin-top: 10px; margin-bottom: 20px;">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-footer text-muted">
                     <p>Precio $ {{service.price}}
-                        <span style="float: right;line-height: 25px;">Duracion: {{service.duration}}</span>
+                        <span style="float: right;line-height: 25px;">Duracion: {{service.duration | duration}}</span>
                     </p>
                 </div>
             </div>

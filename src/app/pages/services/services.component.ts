@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ServicesService } from '../../services/services.service';
 import { Service } from '../../models/service.model';
 import { AlertService } from '../../services/alert.service';
+import { UserService } from '../../services/user.service';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-services',
@@ -15,7 +17,9 @@ export class ServicesComponent implements OnInit {
 
   constructor(
     public _services:ServicesService,
-    public _alert:AlertService
+    public _alert:AlertService,
+    public _userService:UserService,
+    public router:Router
   ) { }
 
   ngOnInit() {
@@ -30,6 +34,15 @@ export class ServicesComponent implements OnInit {
         this.services=resp.data;
       }
     })
+  }
+
+  agendarCita(service){
+    if(this._userService.isAuthenticated()){
+      this.router.navigate(['/appointment',service._id]);
+    }else {
+      this._alert.showAlert("Atencion","Debes iniciar sesion antes de agendar una cita","warning");
+      this.router.navigate(['/login']);
+    }
   }
 
 }

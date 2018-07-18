@@ -10,16 +10,16 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   constructor(
-    public _userService:UserService,
-    public router:Router
+    public _userService:UserService
   ) { }
 
   ngOnInit() {
+    this._userService.validateSession().subscribe();
   }
 
   logout(){
     this._userService.logout();
-    this.router.navigate(["/home"]);
+    
   }
 
 }

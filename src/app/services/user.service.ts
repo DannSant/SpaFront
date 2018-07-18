@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
 import {SERVICE_URL} from '../config/config';
 import 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+import { AlertService } from './alert.service';
+import { Router } from '@angular/router';
 @Injectable()
 export class UserService {
 
@@ -11,9 +14,46 @@ export class UserService {
   email:string
 
   constructor(
-    public http:HttpClient
-  ) {    
+    public http:HttpClient,
+    public _alert:AlertService,
+    public router:Router
+  ) {
     this.cargarStorage();
+    this.validateSession();
+
+    
+   }
+
+   validateSession(){
+    let url = SERVICE_URL + "/validateToken";
+    let headers = new HttpHeaders({token:this.token})
+    return this.http.post(url,{},{headers}).map((resp:any)=>{
+     
+      if(resp.ok){
+        this.guardarStorage(resp.data._id,resp.token,resp.data);
+       
+      }else {
+        this.token="";
+        this.loggedUser=null;
+        this._alert.showAlert("Sesion Expirada","Vuelva a iniciar sesion","error");
+        this.logout(); 
+      }
+      return resp;
+    }).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      console.error(errorMessage);
+      this._alert.showAlert("Sesion Expirada","Vuelva a iniciar sesion","error");
+      this.logout();
+      return Observable.throw(e);
+    });
+   }
+
+   isAuthenticated():boolean{
+     if (this.loggedUser){
+       return true;
+     }else {
+       return false;
+     }
    }
 
    cargarStorage(){
@@ -54,18 +94,27 @@ export class UserService {
         this.loggedUser=null;
       }
       return resp;
-    })
+    }).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      this._alert.showAlert("Error al iniciar sesion",errorMessage,"error");
+      return Observable.throw(e);
+    });
   }
 
   logout(){
     this.token="";
-    this.loggedUser=null;
+    this.loggedUser=null;   
+    this.router.navigate(['/login']);
   }
 
   crearUsuario(user:User){
     let url = SERVICE_URL + "/user";
    
-    return this.http.post(url,user);
+    return this.http.post(url,user).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      this._alert.showAlert("Error al crear usuario",errorMessage,"error");
+      return Observable.throw(e);
+    });
   }
 
 }
