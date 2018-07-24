@@ -1,0 +1,47 @@
+<div class="container main-container">
+    <h3>{{title}}</h3>
+
+    <button [routerLink]="['/catalogs','serviceDay']" class="btn btn-outline-warning"><i class="fas fa-long-arrow-alt-left"></i></button>
+
+    <form #f="ngForm" (ngSubmit)="save(f)">
+
+        <div class="form-group">
+            <label for="day_desc">
+            Dia
+          </label>
+            <select name="day_desc" [(ngModel)]="serviceDay.day_desc" class="custom-select">
+          <option value="Lunes">Lunes</option>
+          <option value="Martes">Martes</option>
+          <option value="Miercoles">Miercoles</option>
+          <option value="Jueves">Jueves</option>
+          <option value="Viernes">Viernes</option>
+          <option value="Sabado">Sabado</option>
+          <option value="Domingo">Domingo</option>
+          
+        </select>
+        </div>
+
+        <div class="form-group">
+            <label for="branchOffice">
+            Oficina
+          </label>
+            <select name="branchOffice" [(ngModel)]="serviceDay.branchOffice" class="custom-select">
+          <option *ngFor="let branchOffice of branchOffices" [value]="branchOffice._id">{{branchOffice.name}}</option>         
+          
+        </select>
+        </div>
+
+        <div class="form-group">
+            <label for="businessHours">
+          Horarios
+        </label>
+            <input name="businessHours" [(ngModel)]="serviceDay.businessHours" class="form-control" type="text" placeholder="Ingresa los horarios">
+        </div>
+
+
+        <button *ngIf="!isNew" type="button" class="btn btn-block btn-danger" (click)="askForDelete()">Eliminar dia de servicio</button>
+        <button type="submit" class="btn btn-block btn-success">Guardar</button>
+
+    </form>
+
+</div>

@@ -1,5 +1,8 @@
 <div class="main-container">
-    <table class="table table-hover">
+    <div class="alert alert-warning" role="alert" *ngIf="appointments.length<=0">
+        No hay citas que mostrar
+    </div>
+    <table class="table table-hover" *ngIf="appointments.length>0">
         <thead>
             <tr>
                 <th>Estatus</th>

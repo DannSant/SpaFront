@@ -1,0 +1,65 @@
+<div class="container main-container">
+    <h3>{{title}}</h3>
+
+    <button [routerLink]="['/catalogs','user']" class="btn btn-outline-warning"><i class="fas fa-long-arrow-alt-left"></i></button>
+
+    <form #f="ngForm" (ngSubmit)="save(f)">
+        <div class="form-group">
+            <label for="email" data-toggle="tooltip" data-placement="top" title="Elige la sucursal donde te gustaria ser atendido">
+              Email
+            </label>
+            <input name="email" [(ngModel)]="user.email" class="form-control" type="text" [disabled]="!isNew">
+        </div>
+
+        <div class="form-group">
+            <label for="name">
+              Nombre
+            </label>
+            <input name="name" [(ngModel)]="user.name" class="form-control" type="text" placeholder="Ingresa el nombre">
+        </div>
+
+        <div class="form-group">
+            <label for="cellphone">
+              Telefono
+            </label>
+            <input name="cellphone" [(ngModel)]="user.cellphone" class="form-control" type="text" placeholder="Ingresa el telefono" maxlength="10">
+        </div>
+        <div class="form-group">
+            <label>Sexo</label>
+            <br>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="sexFem">
+                Femenino
+              </label>
+                <input [(ngModel)]="user.sex" class="form-check-input" type="radio" name="sex" id="sexFem" value="F" checked>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="sexMasc">
+                Masculino
+              </label>
+                <input [(ngModel)]="user.sex" class="form-check-input" type="radio" name="sex" id="sexMasc" value="M">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="role">
+              Rol
+            </label>
+            <select name="role" [(ngModel)]="user.role" class="custom-select">
+            <option *ngFor="let roleItem of _userService.USER_ROLES" [value]="roleItem">{{roleItem}}</option>
+            
+          </select>
+        </div>
+
+        <div class="form-group">
+            <label for="password1" *ngIf="isNew">Password</label>
+            <label for="password1" *ngIf="!isNew">Cambiar Password</label>
+            <input [(ngModel)]="user.password" type="text" class="form-control" name="password1" id="password1" placeholder="Password">
+        </div>
+
+        <button *ngIf="!isNew" type="button" class="btn btn-block btn-danger" (click)="askForDelete()">Eliminar usuario</button>
+        <button type="submit" class="btn btn-block btn-success">Guardar</button>
+
+    </form>
+
+</div>

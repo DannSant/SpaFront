@@ -1,0 +1,49 @@
+<div class="container main-container">
+    <h3>{{title}}</h3>
+
+    <button [routerLink]="['/catalogs','therapist']" class="btn btn-outline-warning"><i class="fas fa-long-arrow-alt-left"></i></button>
+
+    <form #f="ngForm" (ngSubmit)="save(f)">
+        <div class="form-group">
+            <label for="email">
+            Email
+          </label>
+            <input name="email" [(ngModel)]="therapist.email" class="form-control" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="name">
+            Nombre
+          </label>
+            <input name="name" [(ngModel)]="therapist.name" class="form-control" type="text" placeholder="Ingresa el nombre">
+        </div>
+
+        <div class="form-group">
+            <label for="cellphone">
+            Telefono
+          </label>
+            <input name="cellphone" [(ngModel)]="therapist.cellphone" class="form-control" type="text" placeholder="Ingresa el telefono" maxlength="10">
+        </div>
+        <div class="form-group">
+            <label>Sexo</label>
+            <br>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="sexFem">
+              Femenino
+            </label>
+                <input [(ngModel)]="therapist.sex" class="form-check-input" type="radio" name="sex" id="sexFem" value="F" checked>
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="sexMasc">
+              Masculino
+            </label>
+                <input [(ngModel)]="therapist.sex" class="form-check-input" type="radio" name="sex" id="sexMasc" value="M">
+            </div>
+        </div>
+
+        <button *ngIf="!isNew" type="button" class="btn btn-block btn-danger" (click)="askForDelete()">Eliminar masajista</button>
+        <button type="submit" class="btn btn-block btn-success">Guardar</button>
+
+    </form>
+
+</div>

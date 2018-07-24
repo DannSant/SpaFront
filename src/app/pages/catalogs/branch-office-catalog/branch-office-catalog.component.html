@@ -1,0 +1,27 @@
+<div class="container main-container">
+    <h3>Catalogo de sucursales</h3>
+    <hr>
+    <button [routerLink]="['/catalogs','branchOffice','nuevo']" class="btn btn-outline-primary" style="  float: right">
+    <i class="fas fa-plus"></i> Agregar Sucursal
+</button>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let branchOffice of branchOffices">
+                <td>{{branchOffice.name}}</td>
+                <td>{{branchOffice.address}}</td>
+                <td>
+                    <button [routerLink]="['/catalogs','branchOffice',branchOffice._id]" class="btn btn-primary"> <i class="fas fa-edit"></i> </button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -37,6 +37,11 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    if(isNaN(f.value.cellphone)){
+      this._alert.showAlert("Error","El celular debe ser numerico","error");
+      return;
+    }
+
    //llamar servicio
    let user = new User();
    let datos = f.value;

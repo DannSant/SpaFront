@@ -23,10 +23,11 @@
           Administrar
         </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Usuarios</a>
-                    <a class="dropdown-item" href="#">Masajistas</a>
-                    <a class="dropdown-item" href="#">Sucursales</a>
-                    <a class="dropdown-item" href="#">Horarios</a>
+                    <a class="dropdown-item" [routerLink]="['/catalogs','user']">Usuarios</a>
+                    <a class="dropdown-item" [routerLink]="['/catalogs','therapist']">Masajistas</a>
+                    <a class="dropdown-item" [routerLink]="['/catalogs','branchOffice']">Sucursales</a>
+                    <a class="dropdown-item" [routerLink]="['/catalogs','serviceDay']">Horarios</a>
+                    <a class="dropdown-item" [routerLink]="['/catalogs','service']">Servicios</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Agenda</a>
                 </div>

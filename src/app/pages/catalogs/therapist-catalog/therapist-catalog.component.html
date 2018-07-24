@@ -1,0 +1,27 @@
+<div class="container main-container">
+    <h3>Catalogo de masajistas</h3>
+    <hr>
+    <button [routerLink]="['/catalogs','therapist','nuevo']" class="btn btn-outline-primary" style="  float: right">
+      <i class="fas fa-plus"></i> Agregar Masajista
+  </button>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let therapist of therapists">
+                <td>{{therapist.email}}</td>
+                <td>{{therapist.name}}</td>
+                <td>
+                    <button [routerLink]="['/catalogs','therapist',therapist._id]" class="btn btn-primary"> <i class="fas fa-edit"></i> </button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -7,7 +7,7 @@ import {FormsModule} from '@angular/forms'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatFormFieldModule,MatInputModule} from '@angular/material';
-
+import { CatalogsModule } from './pages/catalogs/catalogs.module';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -36,6 +36,7 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { DurationPipe } from './pipes/duration.pipe';
 import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
+
 registerLocaleData(localeEs);
 
 
@@ -66,7 +67,8 @@ registerLocaleData(localeEs);
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    CatalogsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

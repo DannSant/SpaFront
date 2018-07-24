@@ -1,0 +1,42 @@
+<div class="container main-container">
+    <h3>{{title}}</h3>
+
+    <button [routerLink]="['/catalogs','service']" class="btn btn-outline-warning"><i class="fas fa-long-arrow-alt-left"></i></button>
+
+    <form #f="ngForm" (ngSubmit)="save(f)">
+        <div class="form-group">
+            <label for="name">
+            Nombre
+          </label>
+            <input name="name" [(ngModel)]="service.name" class="form-control" type="text" placeholder="Ingresa el nombre" required>
+        </div>
+
+        <div class="form-group">
+            <label for="desc">
+            Descripcion
+          </label>
+            <input name="desc" [(ngModel)]="service.desc" class="form-control" type="text" placeholder="Ingresa la descripcion" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price">
+            Precio
+          </label>
+            <input name="price" [(ngModel)]="service.price" class="form-control" type="text" placeholder="Ingresa el precio" maxlength="8">
+        </div>
+
+        <div class="form-group">
+            <label for="duration">
+            Duracion en minutos:
+          </label>
+            <span class="badge badge-pill badge-primary">{{service.duration}}</span>
+            <input type="range" name="duration" [(ngModel)]="service.duration" class="custom-range" min=0 max=190>
+        </div>
+
+
+        <button *ngIf="!isNew" type="button" class="btn btn-block btn-danger" (click)="askForDelete()">Eliminar servicio</button>
+        <button type="submit" class="btn btn-block btn-success">Guardar</button>
+
+    </form>
+
+</div>

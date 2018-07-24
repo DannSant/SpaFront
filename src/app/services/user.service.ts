@@ -13,6 +13,9 @@ export class UserService {
   loggedUser:User;
   email:string
 
+  //Constantes
+  USER_ROLES = ["USER_ROLE","ADMIN_ROLE"];
+
   constructor(
     public http:HttpClient,
     public _alert:AlertService,
@@ -104,6 +107,9 @@ export class UserService {
   logout(){
     this.token="";
     this.loggedUser=null;   
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.router.navigate(['/login']);
   }
 
@@ -112,7 +118,53 @@ export class UserService {
    
     return this.http.post(url,user).catch((e)=>{      
       let errorMessage = e.error.error.message;
-      this._alert.showAlert("Error al crear usuario",errorMessage,"error");
+      console.error(errorMessage);
+      if(e.status==409){
+        this._alert.showAlert("Error","Ha ocurrido un error al crear el masajista, el email "+user.email.toUpperCase()+" está ya registrado en la base de datos","error");
+      }else {
+        this._alert.showAlert("Error al crear usuario","Ha ocurrido al crear usuario, intente nuevamente despues de recargar la pagina","error");
+      }
+    
+      return Observable.throw(e);
+    });
+  }
+
+  loadAllUsers(){
+    let url = SERVICE_URL + "/user/all";
+    let headers = new HttpHeaders({token:this.token})
+    return this.http.get(url,{headers}).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      this._alert.showAlert("Error","Ha ocurrido un error al recuperar los usuarios de la base de datos. Intenta recargar la pagina","error");
+      return Observable.throw(e);
+    });
+  }
+
+  getUser(id:string){
+    let url = SERVICE_URL + "/user?id=" + id;
+    let headers = new HttpHeaders({token:this.token})
+    return this.http.get(url,{headers}).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      this._alert.showAlert("Error","Ha ocurrido un error al recuperar al usuario de la base de datos. Intenta recargar la pagina","error");
+      return Observable.throw(e);
+    });
+  }
+
+  modifyUser(user:User){
+    let url = SERVICE_URL + "/user/" + user._id;
+    let headers = new HttpHeaders({token:this.token})
+    return this.http.put(url,user,{headers}).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      this._alert.showAlert("Error","Ha ocurrido un error al guardar en la base de datos. Intenta recargar la pagina","error");
+      return Observable.throw(e);
+    });
+  }
+
+  deleteUser(user:User){
+    let url = SERVICE_URL + "/user/delete/" + user._id;
+    let headers = new HttpHeaders({token:this.token})
+    return this.http.post(url,user,{headers}).catch((e)=>{      
+      let errorMessage = e.error.error.message;
+      this._alert.showAlert("Error","Ha ocurrido un error al borrar el usuario en la base de datos. Intenta recargar la pagina","error");
       return Observable.throw(e);
     });
   }
