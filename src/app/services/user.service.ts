@@ -27,7 +27,7 @@ export class UserService {
     
    }
 
-   validateSession(){
+   validateSession(){     
     let url = SERVICE_URL + "/validateToken";
     let headers = new HttpHeaders({token:this.token})
     return this.http.post(url,{},{headers}).map((resp:any)=>{

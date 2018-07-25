@@ -10,8 +10,8 @@ import { AlertService } from '../../services/alert.service';
 import { AppointmentService } from '../../services/appointment.service';
 import { Appointment } from '../../models/appointment.model';
 import { UserService } from '../../services/user.service';
-import { ValueTransformer } from '../../../../node_modules/@angular/compiler/src/util';
 import { Router } from '@angular/router';
+import { WEEK_DAYS } from '../../config/config';
 
 @Component({
   selector: 'app-appointment',
@@ -32,15 +32,7 @@ export class AppointmentComponent implements OnInit {
   selectedServiceDay:ServiceDay;
   businessHour:string;
 
-  weekDays:any = [
-    "domingo",
-    "lunes",
-    "martes",
-    "miercoles",
-    "jueves",
-    "viernes",
-    "sabado"
-  ]
+  
 
   constructor(
     public _services:ServicesService,
@@ -94,16 +86,19 @@ export class AppointmentComponent implements OnInit {
       return;
     }
     for(let serviceDay of this.serviceDays){
-      let sdBranchOffice = serviceDay.branchOffice._id;
+      let sdBranchOffice = serviceDay.branchOffice._id;    
       if(sdBranchOffice==this.branchOffice){
         this.days.push(serviceDay.day_desc);
       }
+    }
+    if(this.days.length==0){
+      this._alert.showAlert("Error","La sucursal seleccionada no tiene ningun dia asignado para atender citas. Favor de seleccionar otra","warning");
     }
   }
   
   checkDate(selectedDate:Date){
     let selectedWeekDayNumber = selectedDate.getDay();
-    let selectedWeekDay:string = this.weekDays[selectedWeekDayNumber];
+    let selectedWeekDay:string = WEEK_DAYS[selectedWeekDayNumber];
     let isValid=false;
     for (let validDay of this.days){
       if(validDay.toLowerCase()==selectedWeekDay.toLowerCase()){
@@ -116,7 +111,7 @@ export class AppointmentComponent implements OnInit {
       this.appointmentDate=null;
       this._alert.showAlert("Error",`Seleccionaste un ${selectedWeekDay.toUpperCase()} y esta sucursal solo atiende los ${this.days.join(",").toUpperCase()} Favor de seleccionar uno de esos dias`,"error");
     }else {
-      this.selectedServiceDay = this.getServiceDayByDesc(selectedWeekDay);
+      this.selectedServiceDay = this._serviceDay.getServiceDayByDesc(selectedWeekDay,this.serviceDays);
     }
 
     this.loadHours();
@@ -124,17 +119,7 @@ export class AppointmentComponent implements OnInit {
     
   }
 
-  getServiceDayByDesc(desc:string):ServiceDay{
-    let sd:ServiceDay;
-    for(let currentSD of this.serviceDays){
-      let serviceDayDesc = currentSD.day_desc;
-      if(desc.toUpperCase()==serviceDayDesc.toUpperCase()){
-        sd = currentSD;
-        break;
-      }
-    }
-    return sd;
-  }
+  
 
   loadHours(){
     if(!this.selectedServiceDay){
@@ -166,12 +151,8 @@ export class AppointmentComponent implements OnInit {
     newAppointment.date=appointmentDate;
 
     //Obtener precio
-    let selectedService = this.services.map((value , index)=>{
-      if(value._id==this.service){
-        return value;
-      }
-    });
-    let price = selectedService[0].price;
+    let selectedService = this.getSelectedService();   
+    let price = selectedService.price;
     newAppointment.price=price;
 
     //Servicio
@@ -183,7 +164,7 @@ export class AppointmentComponent implements OnInit {
     this._appointment.makeAppointment(newAppointment).subscribe((resp:any)=>{
       if(resp.ok){
         this._alert.showAlert("Cita creada","Haz agendado tu cita correctamente. En un periodo de 24 horas habiles nos comunicaremos contigo para confirmarla. Gracias por tu preferencia","success");
-        this.router.navigate(['/appointments']);
+        this.router.navigate(['/appointments','current']);
       }else {
         this._alert.showAlert("Error","Ocurrio un error al agendar tu cita. Prueba recargando la pagina y agendando de nuevo","error");
       }
@@ -193,6 +174,17 @@ export class AppointmentComponent implements OnInit {
     
 
 
+  }
+
+  getSelectedService(){
+    let selectedService:Service;
+    for(let s of this.services){  
+      if(s._id = this.service){
+        selectedService=s;
+        break;
+      }
+    }
+    return selectedService;
   }
 
 

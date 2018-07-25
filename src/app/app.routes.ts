@@ -9,6 +9,7 @@ import { AppointmentComponent } from './pages/appointments/appointment.component
 import { CurrentAppointmentsComponent } from './pages/appointments/listing/current-appointments.component';
 import { PastAppointmentsComponent } from './pages/appointments/listing/past-appointments.component';
 import { LoggedGuard } from './services/guards/logged.guard';
+import { AgendaComponent } from './pages/agenda/agenda.component';
 
 
 
@@ -18,6 +19,7 @@ const app_routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServicesComponent },
+  { path: 'agenda', component: AgendaComponent },
   { 
     path: 'appointments', 
     component: AppointmentsComponent,

@@ -33,11 +33,11 @@ export class ServiceDayDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe((params)=>{
       this.id=params["id"];
      if(this.id=="nuevo"){
-       this.title="Nuevo Masajista";
+       this.title="Nuevo dia de servicio";
        this.serviceDay={};
        this.isNew=true;
      }else {
-       this.title="Modificar Masajista";
+       this.title="Modificar dia de servicio";
        this.isNew=false;
        this.loadData();
      }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +13,10 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._userService.validateSession().subscribe();
+    if(this._userService.token.length>0){
+      this._userService.validateSession().subscribe();
+    }
+    
   }
 
   logout(){

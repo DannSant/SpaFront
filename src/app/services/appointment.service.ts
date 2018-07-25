@@ -30,4 +30,15 @@ export class AppointmentService {
     return this.http.post(url,{},{headers});
   }
 
+  getAppointmentsByDate(desde=0,limite=99,dateFrom=new Date().getTime(),dateTo=new Date().getTime()){   
+    let body = {
+      desde,
+      limite,dateFrom,
+      dateTo
+    }
+    let url = SERVICE_URL + "/appointment/getByDate";
+    let headers = new HttpHeaders({token:this._userService.token});
+    return this.http.post(url,body,{headers});
+  }
+
 }

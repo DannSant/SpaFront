@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatFormFieldModule,MatInputModule} from '@angular/material';
 import { CatalogsModule } from './pages/catalogs/catalogs.module';
+import {HttpClientModule} from '@angular/common/http';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -15,13 +16,13 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import {HttpClientModule} from '@angular/common/http';
 import { AboutComponent } from './pages/about/about.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { AppointmentComponent } from './pages/appointments/appointment.component';
 import { PastAppointmentsComponent } from './pages/appointments/listing/past-appointments.component';
 import { CurrentAppointmentsComponent } from './pages/appointments/listing/current-appointments.component';
+import { AgendaComponent } from './pages/agenda/agenda.component';
 
 //Servicios
 import {AlertService} from './services/alert.service';
@@ -34,8 +35,11 @@ import { AppointmentService } from './services/appointment.service';
 import { LoggedGuard } from './services/guards/logged.guard';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+
+//Pipes
 import { DurationPipe } from './pipes/duration.pipe';
 import { AppointmentStatusPipe } from './pipes/appointment-status.pipe';
+
 
 registerLocaleData(localeEs);
 
@@ -54,7 +58,8 @@ registerLocaleData(localeEs);
     PastAppointmentsComponent,
     CurrentAppointmentsComponent,
     DurationPipe,
-    AppointmentStatusPipe
+    AppointmentStatusPipe,
+    AgendaComponent
     
   ],
   imports: [

@@ -88,4 +88,16 @@ export class ServiceDayService {
     });
   }
 
+  getServiceDayByDesc(desc:string,serviceDays):ServiceDay{
+    let sd:ServiceDay;
+    for(let currentSD of serviceDays){
+      let serviceDayDesc = currentSD.day_desc;
+      if(desc.toUpperCase()==serviceDayDesc.toUpperCase()){
+        sd = currentSD;
+        break;
+      }
+    }
+    return sd;
+  }
+
 }
